@@ -1,4 +1,4 @@
-# Ruta del directorio a verificar
+# Ruta del directorio a verificar_prueba_test
 $directoryPath = "C:\cache"
 
 # Verifica si el directorio existe
