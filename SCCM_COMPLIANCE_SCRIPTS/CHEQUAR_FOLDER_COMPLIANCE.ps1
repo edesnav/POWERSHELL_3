@@ -1,5 +1,6 @@
 # Ruta del directorio a verificar_prueba_test
-$directoryPath = "C:\cache"
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+
 
 # Verifica si el directorio existe
 if (Test-Path -Path $directoryPath) {
@@ -9,10 +10,12 @@ if (Test-Path -Path $directoryPath) {
     # Verifica si el directorio tiene contenido
     if ($directoryContent.Count -gt 0) {
         # Obtiene el subdirectorio más reciente
-        $mostRecentSubdirectory = $directoryContent | Where-Object { $_.PSIsContainer } | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        $mostRecentSubdirectory = $directoryContent | Where-Object { $_.PSIsContainer } |  `
+        Sort-Object LastWriteTime -Descending | Select-Object -First 1
         
         # Elimina todos los subdirectorios excepto el más reciente
-        $subdirectoriesToDelete = $directoryContent | Where-Object { $_.PSIsContainer -and $_ -ne $mostRecentSubdirectory }
+        $subdirectoriesToDelete = $directoryContent | `
+        Where-Object { $_.PSIsContainer -and $_ -ne $mostRecentSubdirectory }
         $subdirectoriesToDelete | Remove-Item -Recurse -Force
     }
 }
